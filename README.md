@@ -3,6 +3,12 @@
 `PageCrawler` was written in order to provide easier integration with jenkins as part of application deployment checks.
 It is written in Python and provides an easy way to check list of url in a file and showing the http status code of the given page. If it found there are pages showing http status code >= 400 (which includes 404, 500, 403 etc), it will finish the script with exit code 1 and will trigger jenkins build to fail.
 
+## Requirements
+This script require termcolor. Simply install it with
+```shell
+$ pip install termcolor
+```
+
 ## Quickstart
 Run the script with:
 
