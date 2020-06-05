@@ -82,7 +82,7 @@ class Crawler(object):
                 message = (message +
                            ' ' +
                            "after %s redirect from %s to %s" % (
-                                self.history_status_code,
+                                self.request.history_status_code,
                                 self.request.history_url,
                                 self.request.url)
                             )
