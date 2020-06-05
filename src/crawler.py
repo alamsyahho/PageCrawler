@@ -1,6 +1,6 @@
 import requests
 from termcolor import colored
-
+from time import sleep
 
 class CrawlerRequest(object):
     """
@@ -55,6 +55,7 @@ class Crawler(object):
                     print('retry %d for %s' %(retry, self.request.url))
                     self.request = CrawlerRequest(requests.get(url))
                     retry = retry + 1
+                    sleep(1)
             self.update_count()
             self.show_status()
 
