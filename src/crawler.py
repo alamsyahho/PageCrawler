@@ -49,6 +49,12 @@ class Crawler(object):
 
         for url in list:
             self.request = CrawlerRequest(requests.get(url))
+            if self.request.status_code >= 400:
+                retry = 1
+                while retry <= 5 and self.request.status_code >= 400:
+                    print('retry %d for %s' %(retry, self.request.url))
+                    self.request = CrawlerRequest(requests.get(url))
+                    retry = retry + 1
             self.update_count()
             self.show_status()
 
@@ -61,7 +67,7 @@ class Crawler(object):
     def show_status(self):
         message = "HTTP Status %s is %d" % (
             self.get_mark(),
-            self.request.history_status_code
+            self.request.status_code
         )
 
         if (
@@ -75,10 +81,11 @@ class Crawler(object):
            ):
                 message = (message +
                            ' ' +
-                           "redirect from %s to %s" % (
+                           "after %s redirect from %s to %s" % (
+                                self.history_status_code,
                                 self.request.history_url,
-                                self.request.url))
-
+                                self.request.url)
+                            )
         print(message)
 
     def show_result(self):
